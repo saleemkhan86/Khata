@@ -42,3 +42,4 @@ export interface DailySalesSummary {
 
 export type TabId = 'sales' | 'catalog' | 'analytics' | 'settings';
 export type Language = 'en' | 'ur';
+export type UrduFont = 'nastaliq' | 'gulzar' | 'naskh' | 'lateef';

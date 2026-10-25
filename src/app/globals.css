@@ -36,12 +36,29 @@ html[dir="rtl"] {
   font-size: 17px;
 }
 
+html[data-urdu-font="nastaliq"],
+:root {
+  --active-urdu-font: var(--font-urdu-nastaliq);
+}
+
+html[data-urdu-font="gulzar"] {
+  --active-urdu-font: var(--font-urdu-gulzar);
+}
+
+html[data-urdu-font="naskh"] {
+  --active-urdu-font: var(--font-urdu-naskh);
+}
+
+html[data-urdu-font="lateef"] {
+  --active-urdu-font: var(--font-urdu-lateef);
+}
+
 [dir="rtl"] body,
 [dir="rtl"] button,
 [dir="rtl"] input,
 [dir="rtl"] textarea,
 [dir="rtl"] select {
-  font-family: var(--font-urdu), var(--font-geist-sans), sans-serif;
+  font-family: var(--active-urdu-font), var(--font-geist-sans), sans-serif;
   letter-spacing: 0;
 }
 

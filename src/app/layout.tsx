@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Noto_Nastaliq_Urdu } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Gulzar,
+  Lateef,
+  Noto_Naskh_Arabic,
+  Noto_Nastaliq_Urdu,
+} from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 
@@ -13,10 +20,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const urduFont = Noto_Nastaliq_Urdu({
-  variable: "--font-urdu",
+const urduNastaliq = Noto_Nastaliq_Urdu({
+  variable: "--font-urdu-nastaliq",
   subsets: ["arabic"],
   weight: ["400", "500", "600", "700"],
+});
+
+const urduGulzar = Gulzar({
+  variable: "--font-urdu-gulzar",
+  subsets: ["arabic"],
+  weight: "400",
+});
+
+const urduNaskh = Noto_Naskh_Arabic({
+  variable: "--font-urdu-naskh",
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const urduLateef = Lateef({
+  variable: "--font-urdu-lateef",
+  subsets: ["arabic"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -29,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${urduFont.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${urduNastaliq.variable} ${urduGulzar.variable} ${urduNaskh.variable} ${urduLateef.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

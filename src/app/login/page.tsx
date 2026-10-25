@@ -41,7 +41,7 @@ export default function LoginPage() {
             <span className="text-3xl font-bold text-white">S</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            {lang === 'ur' ? 'اسٹور ایپ' : 'StoreApp'}
+            {lang === 'ur' ? 'سیل بک' : 'SellBook'}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm">
             {lang === 'ur' ? 'اپنے اسٹور کا انتظام کریں' : 'Manage your store inventory & sales'}

@@ -67,6 +67,7 @@ const translations: Record<Language, TranslationKeys> = {
     darkMode: 'Dark Mode',
     storeSettings: 'Store Settings',
     appSettings: 'App Settings',
+    urduFont: 'Urdu Font',
   },
   ur: {
     appTitle: 'اسٹور ایپ',
@@ -130,6 +131,7 @@ const translations: Record<Language, TranslationKeys> = {
     darkMode: 'ڈارک موڈ',
     storeSettings: 'دکان کی ترتیبات',
     appSettings: 'ایپ کی ترتیبات',
+    urduFont: 'اردو فونٹ',
   },
 };
 
