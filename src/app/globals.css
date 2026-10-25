@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --whatsapp-green: #00a884;
   --whatsapp-green-dark: #008069;
@@ -27,6 +29,30 @@ body {
 
 .dark body {
   background: var(--whatsapp-dark-bg);
+}
+
+/* Urdu typography: Nastaliq needs a larger size and generous line-height to stay legible */
+html[dir="rtl"] {
+  font-size: 17px;
+}
+
+[dir="rtl"] body,
+[dir="rtl"] button,
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+  font-family: var(--font-urdu), var(--font-geist-sans), sans-serif;
+  letter-spacing: 0;
+}
+
+[dir="rtl"] body {
+  line-height: 1.9;
+}
+
+[dir="rtl"] p,
+[dir="rtl"] span,
+[dir="rtl"] label {
+  line-height: 1.7;
 }
 
 .safe-area-bottom {

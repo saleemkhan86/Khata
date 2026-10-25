@@ -60,7 +60,7 @@ export default function ProductCatalog() {
 
   return (
     <div>
-      <div className="px-4 py-3 sticky top-[52px] bg-[#efeae2] dark:bg-[#0b141a] z-10">
+      <div className="px-4 py-3 sticky top-0 bg-[#efeae2] dark:bg-[#0b141a] z-10">
         <div className="relative">
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
