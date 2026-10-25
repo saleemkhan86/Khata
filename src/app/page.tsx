@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { LanguageProvider, useLanguage } from '@/context/LanguageContext';
 import { StoreProvider, useStore } from '@/context/StoreContext';
+import { useAuth } from '@/context/AuthContext';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
 import FAB from '@/components/FAB';
@@ -15,12 +17,20 @@ import RecordSaleModal from '@/components/RecordSaleModal';
 import { TabId } from '@/lib/types';
 
 function AppContent() {
+  const router = useRouter();
   const { lang, dir } = useLanguage();
   const { isUsingMock } = useStore();
+  const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState<TabId>('sales');
   const [darkMode, setDarkMode] = useState(false);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showRecordSale, setShowRecordSale] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, authLoading, router]);
 
   useEffect(() => {
     document.documentElement.dir = dir;
@@ -34,6 +44,18 @@ function AppContent() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#efeae2] dark:bg-[#0b141a]">
+        <div className="w-12 h-12 border-4 border-[#00a884]/30 border-t-[#00a884] rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   const renderTab = () => {
     switch (activeTab) {

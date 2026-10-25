@@ -1,8 +1,9 @@
 'use client';
 
-import { Database, Globe, DollarSign, Store, CheckCircle, AlertCircle } from 'lucide-react';
+import { Database, Globe, DollarSign, Store, CheckCircle, AlertCircle, LogOut, User } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useStore } from '@/context/StoreContext';
+import { useAuth } from '@/context/AuthContext';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { t } from '@/lib/i18n';
 import { useState } from 'react';
@@ -10,6 +11,7 @@ import { useState } from 'react';
 export default function Settings() {
   const { lang, toggleLang } = useLanguage();
   const { settings, updateSettings } = useStore();
+  const { user, signOut } = useAuth();
   const [storeName, setStoreName] = useState(settings.store_name);
   const [storeNameUrdu, setStoreNameUrdu] = useState(settings.store_name_urdu);
   const [currency, setCurrency] = useState(settings.currency);
@@ -138,12 +140,48 @@ export default function Settings() {
         )}
       </div>
 
+      {user && (
+        <div className="bg-white dark:bg-[#1f2c34] rounded-xl p-4 border border-gray-100 dark:border-gray-700/50">
+          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+            <User size={16} className="text-[#00a884]" />
+            {lang === 'ur' ? 'اکاؤنٹ' : 'Account'}
+          </h3>
+          <div className="flex items-center gap-3">
+            {user.user_metadata?.avatar_url ? (
+              <img
+                src={user.user_metadata.avatar_url}
+                alt="Avatar"
+                className="w-10 h-10 rounded-full"
+              />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-[#00a884]/20 flex items-center justify-center">
+                <User size={20} className="text-[#00a884]" />
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">
+                {user.user_metadata?.full_name || user.email}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <button
         onClick={handleSave}
         className="w-full py-3 bg-[#00a884] text-white rounded-xl font-semibold text-sm hover:bg-[#009975] transition-colors flex items-center justify-center gap-2"
       >
         {saved ? <CheckCircle size={18} /> : null}
         {saved ? t('settingsSaved', lang) : t('save', lang)}
+      </button>
+
+      <button
+        onClick={signOut}
+        className="w-full py-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl font-semibold text-sm hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors flex items-center justify-center gap-2"
+      >
+        <LogOut size={18} />
+        {lang === 'ur' ? 'سائن آؤٹ' : 'Sign Out'}
       </button>
     </div>
   );
