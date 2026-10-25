@@ -2,35 +2,40 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/AuthContext';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 export default function AuthCallbackPage() {
   const router = useRouter();
-  const { user } = useAuth();
 
   useEffect(() => {
     if (!isSupabaseConfigured || !supabase) {
-      router.push('/');
+      router.replace('/login');
       return;
     }
 
-    const handleCallback = async () => {
-      if (!supabase) {
-        router.push('/');
+    const client = supabase;
+
+    const completeSignIn = async () => {
+      const query = new URLSearchParams(window.location.search);
+      const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+      const oauthError = query.get('error') || hash.get('error');
+
+      if (oauthError) {
+        router.replace(`/login?error=${encodeURIComponent(oauthError)}`);
         return;
       }
-      const { error } = await supabase.auth.getSession();
-      if (error) {
-        console.error('Auth callback error:', error);
-        router.push('/login?error=auth_failed');
-      } else {
-        router.push('/');
+
+      const { data, error } = await client.auth.getSession();
+      if (error || !data.session) {
+        router.replace('/login?error=signin_failed');
+        return;
       }
+
+      router.replace('/');
     };
 
-    handleCallback();
-  }, [router, user]);
+    completeSignIn();
+  }, [router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#efeae2] dark:bg-[#0b141a]">

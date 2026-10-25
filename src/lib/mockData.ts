@@ -4,9 +4,12 @@ const today = new Date().toISOString().split('T')[0];
 const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 const twoDaysAgo = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
 
+const DEMO_USER = 'demo-user';
+
 export const mockProducts: Product[] = [
   {
     id: 'p1',
+    user_id: DEMO_USER,
     name: 'Basmati Rice (5kg)',
     urdu_name: 'باسمتی چاول (5 کلو)',
     buy_price: 350,
@@ -17,6 +20,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 'p2',
+    user_id: DEMO_USER,
     name: 'Cooking Oil (1L)',
     urdu_name: 'کھانے کا تیل (1 لیٹر)',
     buy_price: 280,
@@ -27,6 +31,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 'p3',
+    user_id: DEMO_USER,
     name: 'Sugar (1kg)',
     urdu_name: 'چینی (1 کلو)',
     buy_price: 120,
@@ -37,6 +42,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 'p4',
+    user_id: DEMO_USER,
     name: 'Green Tea Box',
     urdu_name: 'سبز چائے ڈبہ',
     buy_price: 180,
@@ -47,6 +53,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 'p5',
+    user_id: DEMO_USER,
     name: 'Wheat Flour (10kg)',
     urdu_name: 'آٹا (10 کلو)',
     buy_price: 450,
@@ -57,6 +64,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 'p6',
+    user_id: DEMO_USER,
     name: 'Salt Packet',
     urdu_name: 'نمک کا پیکٹ',
     buy_price: 20,
@@ -70,6 +78,7 @@ export const mockProducts: Product[] = [
 export const mockSales: SaleRecord[] = [
   {
     id: 's1',
+    user_id: DEMO_USER,
     product_id: 'p1',
     units_sold: 2,
     sale_date: today,
@@ -80,6 +89,7 @@ export const mockSales: SaleRecord[] = [
   },
   {
     id: 's2',
+    user_id: DEMO_USER,
     product_id: 'p3',
     units_sold: 5,
     sale_date: today,
@@ -90,6 +100,7 @@ export const mockSales: SaleRecord[] = [
   },
   {
     id: 's3',
+    user_id: DEMO_USER,
     product_id: 'p2',
     units_sold: 1,
     sale_date: yesterday,
@@ -100,6 +111,7 @@ export const mockSales: SaleRecord[] = [
   },
   {
     id: 's4',
+    user_id: DEMO_USER,
     product_id: 'p4',
     units_sold: 3,
     sale_date: yesterday,
@@ -110,6 +122,7 @@ export const mockSales: SaleRecord[] = [
   },
   {
     id: 's5',
+    user_id: DEMO_USER,
     product_id: 'p5',
     units_sold: 1,
     sale_date: twoDaysAgo,
@@ -120,6 +133,7 @@ export const mockSales: SaleRecord[] = [
   },
   {
     id: 's6',
+    user_id: DEMO_USER,
     product_id: 'p6',
     units_sold: 10,
     sale_date: twoDaysAgo,
@@ -130,6 +144,7 @@ export const mockSales: SaleRecord[] = [
   },
   {
     id: 's7',
+    user_id: DEMO_USER,
     product_id: 'p1',
     units_sold: 3,
     sale_date: twoDaysAgo,
@@ -142,6 +157,7 @@ export const mockSales: SaleRecord[] = [
 
 export const mockSettings: StoreSettings = {
   id: 'default',
+  user_id: DEMO_USER,
   store_name: 'My Store',
   store_name_urdu: 'میری دکان',
   currency: 'PKR',

@@ -1,5 +1,27 @@
 # Google Sign-In Setup Guide
 
+## Step 0: Fix redirect to localhost:3000 (IMPORTANT)
+
+If Google sign-in sends you to `http://localhost:3000` and shows "URL not found", Supabase is falling back to its default **Site URL** because your deployed URL is not in the allowed redirect list.
+
+1. Go to https://supabase.com/dashboard/project/hfedfnvnwqjcgecsyuli/auth/url-configuration
+
+2. Set **Site URL** to your Netlify URL, for example:
+   ```
+   https://your-site-name.netlify.app
+   ```
+
+3. Under **Redirect URLs**, add all of these (one per line):
+   ```
+   https://your-site-name.netlify.app/**
+   https://*.netlify.app/**
+   http://localhost:3000/**
+   ```
+
+4. Click **Save**.
+
+After this, Google sign-in returns to your deployed app instead of localhost.
+
 ## Step 1: Configure Supabase Auth
 
 1. Go to your Supabase Dashboard: https://supabase.com/dashboard/project/hfedfnvnwqjcgecsyuli/auth/providers

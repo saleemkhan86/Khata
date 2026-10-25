@@ -1,5 +1,6 @@
 export interface Product {
   id: string;
+  user_id: string;
   name: string;
   urdu_name: string;
   buy_price: number;
@@ -11,6 +12,7 @@ export interface Product {
 
 export interface SaleRecord {
   id: string;
+  user_id: string;
   product_id: string;
   units_sold: number;
   sale_date: string;
@@ -22,6 +24,7 @@ export interface SaleRecord {
 
 export interface StoreSettings {
   id: string;
+  user_id: string;
   store_name: string;
   store_name_urdu: string;
   currency: string;
