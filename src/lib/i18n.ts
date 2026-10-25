@@ -68,6 +68,11 @@ const translations: Record<Language, TranslationKeys> = {
     storeSettings: 'Store Settings',
     appSettings: 'App Settings',
     urduFont: 'Urdu Font',
+    fontSize: 'Text Size',
+    sizeNormal: 'Normal',
+    sizeLarge: 'Large',
+    sizeXLarge: 'Extra Large',
+    sizeHuge: 'Huge',
   },
   ur: {
     appTitle: 'اسٹور ایپ',
@@ -132,6 +137,11 @@ const translations: Record<Language, TranslationKeys> = {
     storeSettings: 'دکان کی ترتیبات',
     appSettings: 'ایپ کی ترتیبات',
     urduFont: 'اردو فونٹ',
+    fontSize: 'متن کا سائز',
+    sizeNormal: 'عام',
+    sizeLarge: 'بڑا',
+    sizeXLarge: 'بہت بڑا',
+    sizeHuge: 'سب سے بڑا',
   },
 };
 

@@ -6,7 +6,7 @@ import { useStore } from '@/context/StoreContext';
 import { useAuth } from '@/context/AuthContext';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { t } from '@/lib/i18n';
-import { UrduFont } from '@/lib/types';
+import { UrduFont, UrduFontSize } from '@/lib/types';
 import { useState } from 'react';
 
 const urduFontOptions: { id: UrduFont; label: string }[] = [
@@ -16,8 +16,15 @@ const urduFontOptions: { id: UrduFont; label: string }[] = [
   { id: 'lateef', label: 'Lateef' },
 ];
 
+const urduSizeOptions: { id: UrduFontSize; key: string }[] = [
+  { id: 'normal', key: 'sizeNormal' },
+  { id: 'large', key: 'sizeLarge' },
+  { id: 'xlarge', key: 'sizeXLarge' },
+  { id: 'huge', key: 'sizeHuge' },
+];
+
 export default function Settings() {
-  const { lang, toggleLang, urduFont, setUrduFont } = useLanguage();
+  const { lang, toggleLang, urduFont, setUrduFont, urduFontSize, setUrduFontSize } = useLanguage();
   const { settings, updateSettings } = useStore();
   const { user, signOut } = useAuth();
   const [storeName, setStoreName] = useState(settings.store_name);
@@ -110,6 +117,26 @@ export default function Settings() {
           <Type size={16} className="text-[#00a884]" />
           {t('urduFont', lang)}
         </h3>
+        <div className="mb-4">
+          <span className="text-xs text-gray-500 dark:text-gray-400 mb-1.5 block">
+            {t('fontSize', lang)}
+          </span>
+          <div className="grid grid-cols-4 gap-2">
+            {urduSizeOptions.map(size => (
+              <button
+                key={size.id}
+                onClick={() => setUrduFontSize(size.id)}
+                className={`rounded-lg border px-2 py-2 text-[11px] font-medium leading-tight transition-colors ${
+                  urduFontSize === size.id
+                    ? 'bg-[#00a884] text-white border-[#00a884]'
+                    : 'bg-gray-50 dark:bg-[#0b141a] text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-[#00a884]/50'
+                }`}
+              >
+                {t(size.key, lang)}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="grid grid-cols-2 gap-2">
           {urduFontOptions.map(font => (
             <button

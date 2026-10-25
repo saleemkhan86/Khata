@@ -33,7 +33,23 @@ body {
 
 /* Urdu typography: Nastaliq needs a larger size and generous line-height to stay legible */
 html[dir="rtl"] {
-  font-size: 17px;
+  font-size: var(--urdu-font-size, 19px);
+}
+
+html[data-urdu-size="normal"] {
+  --urdu-font-size: 17px;
+}
+
+html[data-urdu-size="large"] {
+  --urdu-font-size: 19px;
+}
+
+html[data-urdu-size="xlarge"] {
+  --urdu-font-size: 21px;
+}
+
+html[data-urdu-size="huge"] {
+  --urdu-font-size: 23px;
 }
 
 html[data-urdu-font="nastaliq"],
