@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { X, ShoppingCart, Search, Package, TrendingUp } from 'lucide-react';
+import { X, ShoppingCart, Search, Package, TrendingUp, AlertCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useStore } from '@/context/StoreContext';
 import { t, formatCurrency } from '@/lib/i18n';
@@ -20,6 +20,11 @@ export default function RecordSaleModal({ open, onClose }: RecordSaleModalProps)
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (open) setError(null);
+  }, [open]);
 
   useEffect(() => {
     if (open && !saleDate) {
@@ -54,14 +59,20 @@ export default function RecordSaleModal({ open, onClose }: RecordSaleModalProps)
     if (!selectedProductId || !units || units <= 0) return;
 
     setSaving(true);
+    setError(null);
     try {
       await recordSale(selectedProductId, units, saleDate);
       setSelectedProductId('');
       setUnitsSold('');
       setSearchQuery('');
-      setSaleDate(new Date().toISOString().split('T')[0]);
+      setSaleDate('');
       onClose();
     } catch (err) {
+      const message =
+        typeof err === 'object' && err !== null && 'message' in err
+          ? String((err as { message: unknown }).message)
+          : 'Could not record sale. Please try again.';
+      setError(message);
       console.error('Failed to record sale:', err);
     } finally {
       setSaving(false);
@@ -199,6 +210,13 @@ export default function RecordSaleModal({ open, onClose }: RecordSaleModalProps)
                   {formatCurrency(profit, settings.currency_symbol)}
                 </span>
               </div>
+            </div>
+          )}
+
+          {error && (
+            <div className="flex items-start gap-2 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3">
+              <AlertCircle size={16} className="text-red-500 flex-shrink-0 mt-0.5" />
+              <p className="text-xs text-red-700 dark:text-red-300">{error}</p>
             </div>
           )}
 

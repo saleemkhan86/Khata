@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { X, Upload, Package, Camera } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { X, Package, Camera, AlertCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useStore } from '@/context/StoreContext';
 import { supabase, isSupabaseConfigured, storageBucket } from '@/lib/supabase';
@@ -23,7 +23,12 @@ export default function AddProductModal({ open, onClose }: AddProductModalProps)
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) setError(null);
+  }, [open]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -37,6 +42,7 @@ export default function AddProductModal({ open, onClose }: AddProductModalProps)
     e.preventDefault();
     if (!name || !buyPrice || !sellPrice || !stock) return;
 
+    setError(null);
     setSaving(true);
     try {
       let imageUrl: string | null = null;
@@ -50,6 +56,8 @@ export default function AddProductModal({ open, onClose }: AddProductModalProps)
         if (!uploadError) {
           const { data } = supabase.storage.from(storageBucket).getPublicUrl(path);
           imageUrl = data.publicUrl;
+        } else {
+          console.warn('Image upload skipped:', uploadError.message);
         }
       } else if (imagePreview) {
         imageUrl = imagePreview;
@@ -67,6 +75,11 @@ export default function AddProductModal({ open, onClose }: AddProductModalProps)
       resetForm();
       onClose();
     } catch (err) {
+      const message =
+        typeof err === 'object' && err !== null && 'message' in err
+          ? String((err as { message: unknown }).message)
+          : 'Could not add product. Please try again.';
+      setError(message);
       console.error('Failed to add product:', err);
     } finally {
       setSaving(false);
@@ -188,6 +201,13 @@ export default function AddProductModal({ open, onClose }: AddProductModalProps)
               className="w-full px-3 py-2.5 text-sm border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0b141a] dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#00a884]/50"
             />
           </div>
+
+          {error && (
+            <div className="flex items-start gap-2 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3">
+              <AlertCircle size={16} className="text-red-500 flex-shrink-0 mt-0.5" />
+              <p className="text-xs text-red-700 dark:text-red-300">{error}</p>
+            </div>
+          )}
 
           <button
             type="submit"
