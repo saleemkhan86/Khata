@@ -49,7 +49,7 @@ function AppContent() {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-lg mx-auto bg-white dark:bg-[#0b141a] shadow-2xl relative">
+    <div className="flex flex-col h-screen bg-white dark:bg-[#0b141a] relative">
       <Header darkMode={darkMode} onToggleDark={() => setDarkMode(!darkMode)} />
 
       {isUsingMock && (
@@ -61,7 +61,7 @@ function AppContent() {
       )}
 
       <main
-        className="flex-1 overflow-y-auto pb-20"
+        className="flex-1 overflow-y-auto pb-20 w-full max-w-4xl mx-auto"
         style={{ backgroundColor: activeTab === 'sales' ? 'var(--whatsapp-bg)' : undefined }}
       >
         <div className={activeTab === 'sales' ? 'dark:bg-[#0b141a]' : ''}>

@@ -24,7 +24,7 @@ export default function Header({ darkMode, onToggleDark }: HeaderProps) {
           <h1 className="text-base font-semibold leading-tight">
             {lang === 'ur' ? settings.store_name_urdu || settings.store_name : settings.store_name}
           </h1>
-          <p className="text-xs text-white/70">{settings.currency_symbol} · {t('appSubtitle', lang)}</p>
+          <p className="text-xs text-white/70">{settings.currency_symbol}</p>
         </div>
       </div>
 
